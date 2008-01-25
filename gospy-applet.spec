@@ -1,13 +1,13 @@
 %define name 	gospy-applet
 %define version 0.8.0
-%define release %mkrel 1
+%define release %mkrel 2
 
 Summary: 	Web and server monitoring applet
 Name: 		%name
 Version: 	%version
 Release: 	%release
 Url: 		http://gospy-applet.labs.libre-entreprise.org/
-License: 	GPL
+License: 	GPLv2+
 Group: 		Graphical desktop/GNOME
 Source: 	http://labs.libre-entreprise.org/download/gospy-applet/%{name}-%{version}.tar.bz2
 
@@ -47,16 +47,14 @@ mv $RPM_BUILD_ROOT/etc/gconf/gospy_applet.schemas $RPM_BUILD_ROOT/etc/gconf/sche
 %find_lang %name
 
 %post
-export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gospy_applet.schemas > /dev/null
-scrollkeeper-update
+%post_install_gconf_schemas %name
+%update_scrollkeeper
 
 %preun
-export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-gconftool-2 --makefile-uninstall-rule %{_sysconfdir}/gconf/schemas/gospy_applet.schemas > /dev/null
+%preun_uninstall_gconf_schemas %name
 
 %postun
-scrollkeeper-update
+%clean_scrollkeeper
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -72,5 +70,3 @@ rm -rf $RPM_BUILD_ROOT
 %_datadir/%name
 %_datadir/omf/%name
 %_datadir/pixmaps/*
-
-
