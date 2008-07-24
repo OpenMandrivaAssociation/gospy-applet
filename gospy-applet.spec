@@ -1,6 +1,6 @@
 %define name 	gospy-applet
 %define version 0.8.0
-%define release %mkrel 2
+%define release %mkrel 4
 
 Summary: 	Web and server monitoring applet
 Name: 		%name
