@@ -12,7 +12,7 @@ Group: 		Graphical desktop/GNOME
 Source: 	http://labs.libre-entreprise.org/download/gospy-applet/%{name}-%{version}.tar.bz2
 
 Buildroot: 	%_tmppath/%name-%version-buildroot
-BuildRequires:	ImageMagick pkgconfig GConf2
+BuildRequires:	imagemagick pkgconfig GConf2
 BuildRequires:	libpanel-applet-devel libglade2.0-devel libgnome-vfs2-devel
 BuildRequires:  perl-XML-Parser
 BuildRequires:  gnutls-devel
