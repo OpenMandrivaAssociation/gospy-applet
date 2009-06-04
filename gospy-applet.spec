@@ -1,6 +1,6 @@
 %define name 	gospy-applet
-%define version 0.8.0
-%define release %mkrel 4
+%define version 0.9
+%define release %mkrel 1
 
 Summary: 	Web and server monitoring applet
 Name: 		%name
@@ -9,17 +9,20 @@ Release: 	%release
 Url: 		http://gospy-applet.labs.libre-entreprise.org/
 License: 	GPLv2+
 Group: 		Graphical desktop/GNOME
-Source: 	http://labs.libre-entreprise.org/download/gospy-applet/%{name}-%{version}.tar.bz2
-
+Source: 	http://labs.libre-entreprise.org/download/gospy-applet/%{name}-%{version}.tar.gz
+Patch0:		gospy-applet-0.8.0-gnutls-2.8.patch
+Patch1:		gospy-applet-0.8.0-gnome-ui.patch
+Patch2:		gospy-applet-0.8.0-fix-str-fmt.patch
 Buildroot: 	%_tmppath/%name-%version-buildroot
 BuildRequires:	imagemagick pkgconfig GConf2
-BuildRequires:	libpanel-applet-devel libglade2.0-devel libgnome-vfs2-devel
+BuildRequires:	libpanel-applet-devel libglade2.0-devel libgnome-vfs2-devel gnomeui2-devel
 BuildRequires:  perl-XML-Parser
 BuildRequires:  gnutls-devel
 BuildRequires:  libgnet2-devel
 BuildRequires:	scrollkeeper
 BuildRequires:  desktop-file-utils
 BuildRequires:  libesmtp-devel
+BuildRequires:	intltool
 Requires(post):	GConf2
 Requires(post): scrollkeeper
 Requires(preun):GConf2
@@ -32,18 +35,21 @@ address, and so on.
 
 %prep
 %setup -q
+%patch0 -p0
+%patch1 -p0
+%patch2 -p0
+mkdir m4
 
 %build
-%configure2_5x --with-gconf-schema-file-dir=$RPM_BUILD_ROOT/%_sysconfdir/gconf --with-gconf-source=$RPM_BUILD_ROOT/%_sysconfdir/gconf
+autoreconf -fi
+%configure2_5x --disable-schemas-install
+# --with-gconf-schema-file-dir=$RPM_BUILD_ROOT/%_sysconfdir/gconf --with-gconf-source=$RPM_BUILD_ROOT/%_sysconfdir/gconf
 %make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
-%makeinstall
-rm -fr $RPM_BUILD_ROOT/var/lib/scrollkeeper
-mkdir -p $RPM_BUILD_ROOT/etc/gconf/schemas
-mv $RPM_BUILD_ROOT/etc/gconf/gospy_applet.schemas $RPM_BUILD_ROOT/etc/gconf/schemas/gospy_applet.schemas
+%makeinstall_std
+
 %find_lang %name
 
 %post
