@@ -1,0 +1,28 @@
+--- src/gospy_applet.c.str	2009-06-04 04:23:29.000000000 +0200
++++ src/gospy_applet.c	2009-06-04 04:24:19.000000000 +0200
+@@ -276,7 +276,7 @@
+                            _("A error occured while contacting SMTP server"),
+                            smtp_strerror (smtp_errno (), buf, sizeof buf));
+ 
+-    g_set_error (error, G_OPTION_ERROR, G_OPTION_ERROR_BAD_VALUE, tmp);
++    g_set_error (error, G_OPTION_ERROR, G_OPTION_ERROR_BAD_VALUE, "%s", tmp);
+   }
+   else
+   {
+@@ -285,7 +285,7 @@
+                            _("Test message has been sent"),
+                            status->code,
+                            (status->text != NULL) ? status->text : "");
+-    g_set_error (error, G_OPTION_ERROR, -1, tmp);
++    g_set_error (error, G_OPTION_ERROR, -1, "%s", tmp);
+   }
+ 
+   g_free (tmp), tmp = NULL;
+@@ -442,6 +442,7 @@
+                                               GTK_DIALOG_DESTROY_WITH_PARENT,
+                                               msg_type,
+                                               GTK_BUTTONS_OK,
++					      "%s",
+                                               message);
+ 
+   gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);

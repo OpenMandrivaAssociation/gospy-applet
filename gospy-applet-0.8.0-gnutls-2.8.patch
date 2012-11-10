@@ -1,0 +1,17 @@
+--- configure.in.orig	2007-02-11 21:17:05.000000000 +0100
++++ configure.in	2009-06-04 04:09:06.000000000 +0200
+@@ -124,11 +124,11 @@
+         fi
+ 
+         if test "x$want_gnutls" = "xyes"; then
+-		AM_PATH_LIBGNUTLS(1.0.0,,AC_MSG_ERROR([
++		PKG_CHECK_MODULES(LIBGNUTLS, [gnutls >= 1.0.0],,AC_MSG_ERROR([
+ 		*** gospy-applet require libgnutls >= 1.0
+ 		]))
+-                AC_CHECK_LIB(gnutls, gnutls_global_init, [GNUTLS_LIBS=-lgnutls],,)
+-                GNUTLS_FLAGS=-DENABLE_GNUTLS
++                AC_CHECK_LIB(gnutls, gnutls_global_init, [GNUTLS_LIBS=$LIBGNUTLS_LIBS],,)
++                GNUTLS_FLAGS="-DENABLE_GNUTLS $LIBGNUTLS_CFLAGS"
+         else
+                 AC_MSG_RESULT(not required)
+         fi

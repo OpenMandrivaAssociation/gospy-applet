@@ -1,0 +1,11 @@
+--- configure.in~	2009-06-04 04:15:18.000000000 +0200
++++ configure.in	2009-06-04 04:16:28.000000000 +0200
+@@ -29,7 +29,7 @@
+ AC_SUBST(PACKAGE_CFLAGS)
+ AC_SUBST(PACKAGE_LIBS)
+ 
+-PKG_CHECK_MODULES(GNOME_APPLETS, libpanelapplet-2.0 libglade-2.0 gnome-vfs-module-2.0 gnome-vfs-2.0)
++PKG_CHECK_MODULES(GNOME_APPLETS, libpanelapplet-2.0 libglade-2.0 gnome-vfs-module-2.0 gnome-vfs-2.0 libgnomeui-2.0)
+ AC_SUBST(GNOME_APPLETS_CFLAGS)
+ AC_SUBST(GNOME_APPLETS_LIBS)
+ 
