@@ -6,7 +6,7 @@ Summary: 	Web and server monitoring applet
 Name: 		%name
 Version: 	%version
 Release: 	%release
-Url: 		http://gospy-applet.labs.libre-entreprise.org/
+Url: 		https://gospy-applet.labs.libre-entreprise.org/
 License: 	GPLv2+
 Group: 		Graphical desktop/GNOME
 Source: 	http://labs.libre-entreprise.org/download/gospy-applet/%{name}-%{version}.tar.gz
